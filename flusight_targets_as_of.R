@@ -12,10 +12,10 @@ library(magrittr) # for `%>%`
 fetch_daily_with_epidatr = function(forecast_date, geo_type, geo_values, as_of) {
   target_date_range = target_date_range_for(forecast_date)
   validate_time_parameters(forecast_date, as_of)
-  epidatr::covidcast("hhs", "confirmed_admissions_influenza_1d", "day", geo_type,
+  epidatr::covidcast("hhs", "confirmed_admissions_influenza_1d", geo_type, "day",
+                     geo_values,
                      epidatr::epirange(format(target_date_range[[1L]], "%Y%m%d"),
                                        format(target_date_range[[2L]], "%Y%m%d")),
-                     geo_values,
                      as_of = format(as_of, "%Y%m%d")
                      ) %>%
     epidatr::fetch_tbl()

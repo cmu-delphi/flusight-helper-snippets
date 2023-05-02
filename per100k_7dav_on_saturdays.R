@@ -26,9 +26,9 @@ prop_7dav_state_latest =
 prop_7dav_state_latest2 =
   epidatr::covidcast(
     "hhs", "confirmed_admissions_influenza_1d_prop_7dav",
-    "day", "state",
-    format(saturdays, "%Y%m%d"),
-    geo_values
+    "state", "day",
+    geo_values,
+    format(saturdays, "%Y%m%d")
   ) %>%
   epidatr::fetch_tbl() %>%
   dplyr::select(geo_value, time_value, value, signal)
