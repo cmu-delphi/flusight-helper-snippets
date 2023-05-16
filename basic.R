@@ -5,9 +5,9 @@ library(magrittr) # for `%>%`
 # Delphi Epidata API:
 april = epidatr::covidcast(
   "hhs", "confirmed_admissions_influenza_1d",
-  "day", "state",
-  time_values = epidatr::epirange(20220401, 20220430),
-  geo_values = "*"
+  "state", "day",
+  geo_values = "*",
+  time_values = epidatr::epirange(20220401, 20220430)
 ) %>%
   epidatr::fetch_tbl()
 
@@ -16,9 +16,9 @@ april = epidatr::covidcast(
 april_as_of_may10 =
   epidatr::covidcast(
     "hhs", "confirmed_admissions_influenza_1d",
-    "day", "state",
-    epidatr::epirange(20220401, 20220430),
+    "state", "day",
     "*",
+    epidatr::epirange(20220401, 20220430),
     as_of = 20220510
   ) %>%
   epidatr::fetch_tbl()
