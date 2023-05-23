@@ -18,7 +18,7 @@ fetch_daily_with_epidatr = function(forecast_date, geo_type, geo_values, as_of) 
                                        format(target_date_range[[2L]], "%Y%m%d")),
                      as_of = format(as_of, "%Y%m%d")
                      ) %>%
-    epidatr::fetch_tbl()
+    epidatr::fetch()
 }
 
 fetch_daily_with_covidcast = function(forecast_date, geo_type, geo_values, as_of) {
