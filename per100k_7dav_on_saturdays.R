@@ -19,7 +19,7 @@ prop_7dav_state_latest =
     "state", geo_values,
     format(saturdays, "%Y%m%d")
   ) %>%
-  epidatr::fetch_tbl() %>%
+  epidatr::fetch() %>%
   dplyr::select(geo_value, time_value, value, signal)
 
 # using alternative `epidatr` interface more similar to `covidcast` package:
@@ -30,7 +30,7 @@ prop_7dav_state_latest2 =
     geo_values,
     format(saturdays, "%Y%m%d")
   ) %>%
-  epidatr::fetch_tbl() %>%
+  epidatr::fetch() %>%
   dplyr::select(geo_value, time_value, value, signal)
 
 # using the older `covidcast` package:

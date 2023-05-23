@@ -9,7 +9,7 @@ april = epidatr::covidcast(
   geo_values = "*",
   time_values = epidatr::epirange(20220401, 20220430)
 ) %>%
-  epidatr::fetch_tbl()
+  epidatr::fetch()
 
 # Fetch these measurements as they were reported on May 10, rather than the
 # current version:
@@ -21,7 +21,7 @@ april_as_of_may10 =
     epidatr::epirange(20220401, 20220430),
     as_of = 20220510
   ) %>%
-  epidatr::fetch_tbl()
+  epidatr::fetch()
 
 # Fetch the first data set using the older `covidcast` package:
 april_with_covidcast = covidcast::covidcast_signal(
