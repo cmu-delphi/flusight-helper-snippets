@@ -1,33 +1,29 @@
 import datetime
 
-import pandas as pd
-
 from epidatpy import CovidcastEpidata, EpiDataContext, EpiRange
 
-# All calls using the `epidata` object will be cached for a day
-epidata = EpiDataContext(use_cache=True, cache_max_age_days=1)
+epidata = EpiDataContext()
 
-# Fetch daily HHS hospitalization count data for all states and territories for
-# April 2022:
-april = epidata.pub_covidcast(
-    data_source = "hhs",
-    signals = "confirmed_admissions_influenza_1d",
-    geo_type = "nation",
-    time_type = "day",
-    geo_values = "*",
-    time_values = EpiRange(20220401, 20220430)
+# Fetch latest NHSN hospitalization data for all states and territories:
+nhsn_latest = epidata.epidata_snapshot(
+  "nhsn", "confirmed_admissions_flu_ew", "state"
 ).df()
-# (You can also use `time_values = "*"` to get data for all times, or
-# `time_values = array_of_dates` to get data for those dates.)
 
-# Fetch these measurements as they were reported on May 10, rather than the
-# current version:
-april_as_of_may10 = epidata.pub_covidcast(
-    data_source = "hhs",
-    signals = "confirmed_admissions_influenza_1d",
-    geo_type = "nation",
-    time_type = "day",
-    geo_values = "*",
-    time_values = EpiRange(20220401, 20220430),
-    as_of = 20220510
+# Fetch latest NSSP data:
+nssp_latest = epidata.epidata_snapshot(
+  "nssp", "pct_ed_visits_influenza", "state"
 ).df()
+
+# Fetch NHSN hospitalization revision history:
+nhsn_history = epidata.epidata_archive(
+  "nhsn", "confirmed_admissions_flu_ew", "state"
+).df()
+
+# Browse available signals (see also
+# https://cmu-delphi.github.io/delphi-epidata/api/v5_signals.html
+# and
+# https://delphi.cmu.edu/epiportal/
+# ):
+meta = epidata.epidata_meta()
+meta.keys()
+signals_by_source["nssp"]["signals"] # equivalent to epidata.epidata_meta("nssp")["signals"]

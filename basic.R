@@ -1,27 +1,25 @@
 library(magrittr) # for `%>%`
+library(epidatr)
 
-# Enable caching of some version history queries:
-epidatr::set_cache()
+# Fetch latest NHSN hospitalization data for all states and territories:
+nhsn_latest <- epidata("nhsn", "confirmed_admissions_flu_ew", "state")
 
-# Fetch daily HHS hospitalization count data for all states and territories for
-# April 2022 using `epidatr`:
-april = epidatr::pub_covidcast(
-  source = "hhs",
-  signals = "confirmed_admissions_influenza_1d",
-  geo_type = "state",
-  time_type = "day",
-  geo_values = "*",
-  time_values = epidatr::epirange(20220401, 20220430)
-)
-# (You can also use `time_values = "*"` to get data for all times, or
-# `time_values = date_vector` to get data for those dates.)
+# Fetch latest NSSP data:
+nssp_latest <- epidata("nssp", "pct_ed_visits_influenza", "state")
 
-# Fetch these measurements as they were reported on May 10, rather than the
-# current version:
-april_as_of_may10 =
-  epidatr::pub_covidcast(
-    "hhs", "confirmed_admissions_influenza_1d",
-    "state", "day",
-    "*", epidatr::epirange(20220401, 20220430),
-    as_of = 20220510
-  )
+# Fetch NHSN hospitalization revision history:
+nhsn_history <- epidata_archive("nhsn", "confirmed_admissions_flu_ew", "state")
+
+# See also the {epiprocess} package for working with the time series
+# data and revision histories, and {epipredict} for some
+# "plug-and-predict" forecasters.
+
+# Browse available signals (see also
+# https://cmu-delphi.github.io/delphi-epidata/api/v5_signals.html
+# and
+# https://delphi.cmu.edu/epiportal/
+# ):
+meta <- epidata_meta()
+signals_by_source <- meta %>% lapply(function(x) x$signals)
+names(signals_by_source)
+signals_by_source[["nssp"]] # equivalent to epidata_meta("nssp")$signals
