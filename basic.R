@@ -21,5 +21,5 @@ nhsn_history <- epidata_archive("nhsn", "confirmed_admissions_flu_ew", "state")
 # ):
 meta <- epidata_meta()
 signals_by_source <- meta %>% lapply(function(x) x$signals)
-names(signals_by_source)
+names(signals_by_source) # source list
 signals_by_source[["nssp"]] # equivalent to epidata_meta("nssp")$signals

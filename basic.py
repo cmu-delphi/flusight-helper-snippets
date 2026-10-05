@@ -25,5 +25,5 @@ nhsn_history = epidata.epidata_archive(
 # https://delphi.cmu.edu/epiportal/
 # ):
 meta = epidata.epidata_meta()
-meta.keys()
-signals_by_source["nssp"]["signals"] # equivalent to epidata.epidata_meta("nssp")["signals"]
+meta.keys() # source list
+meta["nssp"]["signals"] # signal list; equivalent to epidata.epidata_meta("nssp")["signals"]
